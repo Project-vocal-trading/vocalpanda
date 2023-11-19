@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>persnalcolor</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        {% load static %}
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+		<style>
+			.main {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+			}
+	
+			.container {
+				text-align: center;
+			}
+	
+			.color-box {
+				display: inline-block;
+				text-align: center;
+			}
+	
+			.square {
+				width: 50px;
+				height: 50px;
+				border-radius: 10px;
+				margin: 20px auto;
+				opacity: 0;
+				transition: background-color 1s, opacity 1s;
+			}
+	
+			.color-name {
+				opacity: 0;
+				transition: opacity 1s, color 1s;
+			}
+
+			/* 시작하기 버튼 스타일 */
+			.restart-button {
+            text-align: center;
+        }
+
+        .restart-button a {
+            text-decoration: none !important;
+        }
+
+        .restart-button a:hover {
+            text-decoration: none !important;
+        }
+
+        a:not(:hover) {
+            text-decoration: none !important;
+        }
+
+		#start-button {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<!-- Logo -->
+					<a href="{% url 'mainpage' %}" class="logo">
+						<span class="symbol"><img src="{% static 'images/vocalpanda.png' %}" alt="" /></span><span class="title">Vocal Panda</span>
+					</a>
+					<!-- Nav -->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
+				</div>
+			</header>
+
+			<!-- Menu -->
+			<nav id="menu">
+				<h2>Menu</h2>
+				<ul>
+					<li><a href="{% url 'mainpage' %}">메인 페이지</a></li>
+					<li><a href="{% url 'mypage' %}">마이 페이지</a></li>
+					<li><a href="{% url 'login' %}">로그인/회원가입</a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<h1>목소리 퍼스널 컬러</h1>
+				</div>
+
+				<div class="container">
+					<div class="color-box">
+						<div class="square" id="square1"></div>
+						<p class="color-name" id="color-name1"></p>
+					</div>
+				</div>
+				
+				<div class="container">
+					<div class="color-box">
+						<div class="square" id="square2"></div>
+						<p class="color-name" id="color-name2"></p>
+					</div>
+				</div>
+
+				
+
+				<div class="restart-button hidden fade-in">
+					<a href="{% url 'persnalcolor_record' %}">
+						<button onclick="restartAnimation()">시작하기</button>
+					</a>
+					
+				<script>
+					const colorData = [
+						{ name: "Red", rgb: "rgb(255, 0, 0)" },
+						{ name: "Orange", rgb: "rgb(255, 165, 0)" },
+						{ name: "Yellow", rgb: "rgb(255, 255, 0)" },
+						{ name: "Lime", rgb: "rgb(0, 255, 0)" },
+						{ name: "Cyan", rgb: "rgb(0, 255, 255)" },
+						{ name: "RoyalBlue", rgb: "rgb(65, 105, 225)" },
+						{ name: "MediumPurple", rgb: "rgb(147, 112, 219)" },
+						{ name: "Azure", rgb: "rgb(240, 255, 255)" },
+						{ name: "Crimson", rgb: "rgb(220, 20, 60)" },
+						{ name: "Olive", rgb: "rgb(128, 128, 0)" },
+						{ name: "Indigo", rgb: "rgb(75, 0, 130)" },
+						{ name: "DimGray", rgb: "rgb(105, 105, 105)" },
+						{ name: "Navy", rgb: "rgb(0, 0, 128)" },
+						{ name: "Teal", rgb: "rgb(0, 128, 128)" },
+						{ name: "SpringGreen", rgb: "rgb(0, 255, 127)" },
+						{ name: "PapayaWhip", rgb: "rgb(255, 239, 213)" }
+					];
+					
+					const square1 = document.getElementById("square1");
+					const colorName1 = document.getElementById("color-name1");
+					const square2 = document.getElementById("square2");
+					const colorName2 = document.getElementById("color-name2");
+					
+					let currentIndex1 = 0;
+					let currentIndex2 = colorData.length - 1;
+					
+					function changeColor() {
+						square1.style.opacity = 0;
+						colorName1.style.opacity = 0;
+						square2.style.opacity = 0;
+						colorName2.style.opacity = 0;
+					
+						setTimeout(() => {
+							const currentColor1 = colorData[currentIndex1];
+							square1.style.backgroundColor = currentColor1.rgb;
+							colorName1.innerText = currentColor1.name;
+							square1.style.opacity = 1;
+							colorName1.style.opacity = 1;
+							colorName1.style.color = currentColor1.rgb;
+							currentIndex1 = (currentIndex1 + 1) % colorData.length;
+							
+							const currentColor2 = colorData[currentIndex2];
+							square2.style.backgroundColor = currentColor2.rgb;
+							colorName2.innerText = currentColor2.name;
+							square2.style.opacity = 1;
+							colorName2.style.opacity = 1;
+							colorName2.style.color = currentColor2.rgb;
+							currentIndex2 = (currentIndex2 - 1 + colorData.length) % colorData.length;
+						}, 1000);
+					}
+					
+					square1.style.backgroundColor = colorData[currentIndex1].rgb;
+					colorName1.innerText = colorData[currentIndex1].name;
+					square1.style.opacity = 1;
+					colorName1.style.opacity = 1;
+					colorName1.style.color = colorData[currentIndex1].rgb;
+					
+					square2.style.backgroundColor = colorData[currentIndex2].rgb;
+					colorName2.innerText = colorData[currentIndex2].name;
+					square2.style.opacity = 1;
+					colorName2.style.opacity = 1;
+					colorName2.style.color = colorData[currentIndex2].rgb;
+					
+					setInterval(changeColor, 2000);
+				</script>
+			</div>
+		</div>
+				
+		<!-- Scripts -->
+		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		<script src="{% static 'assets/js/browser.min.js' %}"></script>
+		<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+		<script src="{% static 'assets/js/util.js' %}"></script>
+		<script src="{% static 'assets/js/main.js' %}"></script>
+	</body>
+</html>

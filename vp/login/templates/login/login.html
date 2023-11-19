@@ -1,0 +1,53 @@
+{% load static %} 
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+    <title>Vocalpanda</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}" /></noscript>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <div class="inner">
+                <a href="{% url 'mainpage' %}" class="logo">
+                    <span class="symbol"><img src="{% static 'images/vocalpanda.png' %}" alt="" /></span><span class="title">Vocal Panda</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <nav id="menu">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{% url 'mainpage' %}">메인 페이지</a></li>
+                <li><a href="{% url 'mypage' %}">마이 페이지</a></li>
+                <li><a href="{% url 'login' %}">로그인/회원가입</a></li>
+            </ul>
+        </nav>
+        <div id="main">
+            <div class="inner">
+                <h1>로그인/회원가입</h1>
+                <section class="section_big _90">
+                    <div id="w-node-_950a213b-50e6-348c-c062-98fb5a74a412-cebea2dc" class="form-block w-form">
+                        <a id="naverIdLogin_loginButton" href="#" role="button">
+                            <img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/util.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/login.js' %}" type="text/javascript"></script>
+</body>
+</html>
