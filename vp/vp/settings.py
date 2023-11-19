@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "mypage.apps.MypageConfig",
     "login.apps.LoginConfig",
     "persnalcolor_record.apps.PersnalcolorRecordConfig",
+    "persnalcolor_result.apps.PersnalcolorResultConfig",
 ]
 
 MIDDLEWARE = [

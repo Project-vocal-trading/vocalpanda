@@ -23,6 +23,7 @@ urlpatterns = [
     path('mypage/', include('mypage.urls')),
     path('login/', include('login.urls')),
     path('persnalcolor_record/', include('persnalcolor_record.urls')),
+    path('persnalcolor_result/', include('persnalcolor_result.urls')),
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
 ]
