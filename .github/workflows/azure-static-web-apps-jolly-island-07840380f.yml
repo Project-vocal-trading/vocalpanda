@@ -23,7 +23,7 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ cecfdb79452f681a61ac04c119ac1240c7021fc7e198099cd787ed2457c90a4a4-d15b1e6a-5f54-496f-9b6d-ccf69252ac8f00f128379 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_ISLAND_07840380F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
@@ -42,5 +42,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ cecfdb79452f681a61ac04c119ac1240c7021fc7e198099cd787ed2457c90a4a4-d15b1e6a-5f54-496f-9b6d-ccf69252ac8f00f128379 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_ISLAND_07840380F }}
           action: "close"
