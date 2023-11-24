@@ -43,7 +43,47 @@ INSTALLED_APPS = [
     "login.apps.LoginConfig",
     "persnalcolor_record.apps.PersnalcolorRecordConfig",
     "persnalcolor_result.apps.PersnalcolorResultConfig",
+    'allauth',
+    'allauth.account', # 가입한 계정 관리
+    'allauth.socialaccount', # 소셜 계정으로 가입한 계정 관리
+    'allauth.socialaccount.providers.naver', # 어떤 소셜 서비스를 사용하는지 추가
 ]
+
+# allauth site_id
+SITE_ID = 1
+
+# 로그인 후 리디렉션할 페이지
+LOGIN_REDIRECT_URL = 'mypage'
+# 로그아웃 후 리디렉션할 페이지
+ACCOUNT_LOGOUT_REDIRECT_URL = ''
+# 로그아웃 버튼 클릭 시 자동 로그아웃
+ACCOUNT_LOGOUT_ON_GET = True
+
+# allauth backends
+AUTHENTICATION_BACKENDS = (
+    # 'allauth' specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+    #Needed to login by username in Django admin, regardless of 'allauth'
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'naver': {
+        'SCOPE': [
+            'name',
+            'gender',
+            'birthday',
+        ],
+        'APP': {
+            'client_id': 'vTKo54VTlSQklj7PQQcS',
+            'secret': 'RN6GtHjNeU',
+        }
+    }
+}
+
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -53,6 +93,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = "vp.urls"
@@ -80,9 +121,18 @@ WSGI_APPLICATION = "vp.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vocaldatabase',
+        'USER': 'enterprise',
+        'PASSWORD': 'Daejin!1527',
+        'HOST': 'vocaldatabase.mysql.database.azure.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': 'D:\mysql_ssl\DigiCertGlobalRootCA.crt.pem',  # SSL 인증서의 경로
+            },
+        },
     }
 }
 

@@ -18,21 +18,18 @@
             display: none;
         }
 
-       
         .bounce {
             animation: bounce 1s ease 1; 
         }
 
-        
         .fade-in {
             animation: fade-in 1s ease 1; 
         }
 
-        
         .square {
             width: 100px;
             height: 100px;
-            background-color: rgb(255, 0, 0); /* 결과 RGB 값 */
+            background-color: rgb({{ result }}); /* 결과 RGB 값 */
             border-radius: 10px; 
             padding: 20px;
             margin: 0 auto; 
@@ -101,7 +98,7 @@
                 <h1>목소리 퍼스널 컬러</h1>
             </div>
             <div class="square bounce" id="square"></div>
-            <h2 class="hidden fade-in">Color</h2>
+            <h2 class="hidden fade-in">Your personal color is {{ result }}</h2>
             <p class="hidden fade-in">Color info Color info Color info Color info Color info Color info Color info </p>
             <div class="restart-button hidden fade-in">
                 <a href="{% url 'color' %}">

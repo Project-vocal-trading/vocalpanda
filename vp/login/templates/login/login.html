@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}" /></noscript>
+    <style>
+        .naver_button {
+            
+        }
+    </style>
 </head>
 <body class="is-preload">
     <div id="wrapper">
@@ -33,11 +38,17 @@
         <div id="main">
             <div class="inner">
                 <h1>로그인/회원가입</h1>
+                {% load socialaccount %}
+                {% providers_media_js %}
                 <section class="section_big _90">
                     <div id="w-node-_950a213b-50e6-348c-c062-98fb5a74a412-cebea2dc" class="form-block w-form">
-                        <a id="naverIdLogin_loginButton" href="#" role="button">
-                            <img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320>
-                        </a>
+                        <form action="{% provider_login_url 'naver' %}" method='post'>
+                            {% csrf_token %}
+                            <button id="naverIdLogin_loginButton" role="button" style="all: unset;">
+                                <img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320>
+                            </button>
+                        </form>
+                        
                     </div>
                 </section>
             </div>

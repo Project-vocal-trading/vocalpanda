@@ -26,6 +26,7 @@ urlpatterns = [
     path('persnalcolor_result/', include('persnalcolor_result.urls')),
     path('admin/', admin.site.urls),
     path('', include('mainpage.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 handler404 = 'vp.views.error_404_view'

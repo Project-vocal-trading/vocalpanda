@@ -4165,7 +4165,7 @@ textarea.w-select {
 }
 
 .profile-input-wrapper {
-  width: 100%;
+  width: 40%;
   min-height: 30px;
 }
 
@@ -5078,6 +5078,7 @@ textarea.w-select {
 
   .dashboard-grid.reverse {
     flex-direction: column;
+    left: 5pt;
   }
 
   .dash_profile-menu {
