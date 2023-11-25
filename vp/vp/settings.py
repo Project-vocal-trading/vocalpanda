@@ -132,7 +132,7 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'ssl': {
-                'ca': 'D:\mysql_ssl\DigiCertGlobalRootCA.crt.pem',  # SSL 인증서의 경로
+                'ca': 'D:\SSH_key\DigiCertGlobalRootCA.crt.pem',  # SSL 인증서의 경로
             },
         },
     }
