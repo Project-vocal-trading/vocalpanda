@@ -5,12 +5,17 @@ import librosa
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from vp.decorators import check_session
 
+from .models import Voice
+from login.models import Mem
 from .predictor import Predictor
 
+@check_session
 def persnalcolor_result(request):
     return render(request, 'persnalcolor_result/persnalcolor_result.html')
 
@@ -25,11 +30,11 @@ def closest_color(requested_color):
     return min_colors[min(min_colors.keys())]
 
 @csrf_exempt
+@check_session
 def result(request):
     if request.method == 'POST':
         audio_data = request.FILES['audio_data']
         filename = audio_data.name
-        audio_data.save(filename)  # 서버에 파일 저장
 
         y, sr = librosa.load(filename)
 
@@ -74,7 +79,47 @@ def result(request):
         predictor = Predictor()
         emo_label = predictor.predict(filename)
 
-        os.remove(filename)
+        # Voice 인스턴스 생성
+        voice = Voice()
+        
+        # voiceno는 1부터 1씩 증가하게 설정
+        # 이를 위해 voice 테이블의 마지막 voiceno를 찾아 1을 더함
+        last_voice = Voice.objects.order_by('-voiceno').first()
+        if last_voice is None:
+            voice.voiceno = 1
+        else:
+            voice.voiceno = last_voice.voiceno + 1
+        
+        # memno는 세션에서 가져옴
+        voice.memno = request.session.get('memno')
+
+        # vtextno는 이전 페이지로부터 전달 받음
+        # 이 코드는 vtextno를 전달받는 방법에 따라 수정해야 함
+        voice.vtextno = request.POST.get('vtextno')
+
+        # birth는 mem 테이블의 memno와 같은 대상의 membirth를 넣음
+        # mem 테이블에서 memno에 해당하는 회원을 찾아 birth에 할당
+        mem = Mem.objects.get(memno=voice.memno)
+        voice.birth = mem.membirth
+
+        # gender는 mem 테이블의 memno와 같은 대상의 memgender를 넣음
+        voice.gender = mem.memgender
+
+        # emotion은 해당 페이지에서 감정 추정을 한 결과를 넣음
+        voice.emotion = emo_label
+
+        # intensity는 해당 페이지에서 강도 값 계산 함수를 실행한 결과를 넣음
+        voice.intensity = intensity
+
+        # voicename은 (현재 년도 - membirth)_gender_emotion.wav로 지정
+        current_year = datetime.datetime.now().year
+        voice.voicename = f"{current_year - int(voice.birth)}_{voice.gender}_{voice.emotion}.wav"
+
+        # voice 인스턴스 저장
+        voice.save()
+        
+        # 파일 이름 변경
+        os.rename(filename, voice.voicename)
 
         return render(request, 'persnalcolor_result/persnalcolor_result.html', {'color': closest_name})
 
