@@ -34,7 +34,7 @@ ipykernel==6.26.0
 ipython==8.17.2
 jedi==0.19.1
 joblib==1.1.0
-JPype1 @ file:///C:/kd/setup/JPype1-1.4.0-cp39-cp39-win_amd64.whl#sha256=3dcfee215e949acd79eccffbfae62b88c688200db3b326eef1cdca58bb08de91
+JPype1==1.4.0
 jupyter_client==8.5.0
 jupyter_core==5.5.0
 keras==2.8.0
