@@ -5,7 +5,7 @@ module.exports = async function (context, req) {
     logging.info('JavaScript HTTP trigger function processed a request.');
 
     const name = req.query.name || (req.body && req.body.name);
-    if (name) {
+    if (name) { 
         return {
             status: 200,
             body: `Hello, ${name}!`
